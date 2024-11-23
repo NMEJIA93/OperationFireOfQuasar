@@ -4,6 +4,7 @@
  */
 package operationFireOfQuasar.application;
 
+import OperationFireOfQuasar.shared.Const;
 import java.util.ArrayList;
 import java.util.List;
 import operationFireOfQuasar.domain.models.Message;
@@ -29,9 +30,9 @@ public class QuasarService {
 
     public QuasarService(SatelliteRepository satelliteRepository) {
         this.satelliteRepository=satelliteRepository;
-        Satellite kenobi = new Satellite("kenobi", new Point(-500, -200), new Message(0, new ArrayList<String>()));
-        Satellite skyWalker = new Satellite("skyWalker", new Point(100, -100), new Message(0, new ArrayList<String>()));
-        Satellite sato = new Satellite("sato", new Point(500, 100), new Message(0, new ArrayList<String>()));
+        Satellite kenobi = new Satellite(Const.KENOBI, new Point(-500, -200), new Message(0, new ArrayList<String>()));
+        Satellite skyWalker = new Satellite(Const.SKYWALKER, new Point(100, -100), new Message(0, new ArrayList<String>()));
+        Satellite sato = new Satellite(Const.SATO, new Point(500, 100), new Message(0, new ArrayList<String>()));
         satelliteRepository.save(sato);
         satelliteRepository.save(skyWalker);
         satelliteRepository.save(kenobi);
