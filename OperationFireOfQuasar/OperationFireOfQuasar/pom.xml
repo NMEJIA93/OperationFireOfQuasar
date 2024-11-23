@@ -8,10 +8,10 @@
 		<version>3.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>OperationFireOfQuasar</groupId>
-	<artifactId>OperationFireOfQuasar</artifactId>
+	<groupId>operationFireOfQuasar</groupId>
+	<artifactId>operationFireOfQuasar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>OperationFireOfQuasar</name>
+	<name>operationFireOfQuasar</name>
 	<description>technical test Evaluation</description>
 	<url/>
 	<licenses>
@@ -52,14 +52,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
