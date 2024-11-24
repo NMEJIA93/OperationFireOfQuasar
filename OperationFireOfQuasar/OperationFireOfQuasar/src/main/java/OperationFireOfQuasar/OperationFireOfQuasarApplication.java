@@ -27,7 +27,8 @@ public class OperationFireOfQuasarApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.level1.messageController();
+        //this.level1.messageController();
+        this.level1.level1Controller();
     }
     
     

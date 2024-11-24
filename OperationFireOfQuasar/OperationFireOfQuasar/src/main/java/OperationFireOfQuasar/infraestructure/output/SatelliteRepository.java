@@ -27,7 +27,7 @@ public class SatelliteRepository implements ISatelliteRepository {
     @Override
     public void save(Satellite satellite) {
         satelliteStorage.put(satellite.getName(), satellite);
-        System.out.println("se ha guardado el satelite " + satellite.getName());
+        //System.out.println("se ha guardado el satelite " + satellite.getName());
     }
 
     @Override
