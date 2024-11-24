@@ -102,7 +102,7 @@ public class ConsoleAdapter {
             System.out.println("el mensaje es : " + message);
 
             Point origin = quasarService.getLocation(distances);
-            System.out.println("el mensaje tiene origen en X:" + origin.getxLocation() + " y Y:" + origin.getyLocation());
+            System.out.println("Las Coordenadas del Emisor de mensaje son en X:" + origin.getxLocation() + " y Y:" + origin.getyLocation());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             for (StackTraceElement st : e.getStackTrace()) {
