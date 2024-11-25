@@ -24,6 +24,7 @@ public class MessageConstructor {
                 if (word != null && !word.equals("") && !addedWords.contains(word)) {
                     reconstructedMessage.add(word);
                     addedWords.add(word);
+                    System.out.println(word);
                 }
             }
         }
