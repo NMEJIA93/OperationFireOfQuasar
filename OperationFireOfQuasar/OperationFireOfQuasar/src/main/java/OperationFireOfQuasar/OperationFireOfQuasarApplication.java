@@ -1,5 +1,6 @@
 package operationFireOfQuasar;
 
+
 import operationFireOfQuasar.infraestructure.input.ConsoleAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,9 +26,7 @@ public class OperationFireOfQuasarApplication implements CommandLineRunner {
         this.level1 = level1;
     }
 
-    @Override
     public void run(String... args) throws Exception {
-        //this.level1.messageController();
         this.level1.level1Controller();
     }
     

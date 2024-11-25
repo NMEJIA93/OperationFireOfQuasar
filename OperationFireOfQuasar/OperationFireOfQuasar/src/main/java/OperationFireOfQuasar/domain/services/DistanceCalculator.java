@@ -31,6 +31,10 @@ public class DistanceCalculator {
         double d2 = s2.getMessage().getDistance();
         double d3 = s3.getMessage().getDistance();
 
+        if (d1 == d2 || d1 == d3 || d2 == d3 ) {
+            throw new Exception("dos Satelites no pueden tener la misma distancia desde el Emisor");
+        }
+
         double A = 2 * (p2[0] - p1[0]);
         double B = 2 * (p2[1] - p1[1]);
         double C = Math.pow(d1, 2) - Math.pow(d2, 2) - Math.pow(p1[0], 2) + Math.pow(p2[0], 2) - Math.pow(p1[1], 2) + Math.pow(p2[1], 2);
@@ -44,5 +48,3 @@ public class DistanceCalculator {
         return new Point(x, y);
     }
 }
-
-

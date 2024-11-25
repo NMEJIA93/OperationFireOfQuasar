@@ -66,7 +66,7 @@ public class ConsoleAdapter {
 
     }
 
-    public void level1Controller() {
+     public void level1Controller() {
 
         System.out.println("ingrese el mensaje de Kenobi separado por comas (en caso de ser cortado ponga dos comas seguidas");
         String messageKenobi = reader.nextLine();
