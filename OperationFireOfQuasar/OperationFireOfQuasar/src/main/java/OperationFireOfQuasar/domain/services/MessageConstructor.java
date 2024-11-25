@@ -5,6 +5,7 @@
 package operationFireOfQuasar.domain.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import operationFireOfQuasar.domain.models.Satellite;
 
@@ -14,6 +15,8 @@ import operationFireOfQuasar.domain.models.Satellite;
  */
 public class MessageConstructor {
 
+    
+    /*
     public static String reconstructMessage(List<Satellite> satellites) {
         List<String> reconstructedMessage = new ArrayList<String>();
         List<String> addedWords = new ArrayList<>();
@@ -30,5 +33,39 @@ public class MessageConstructor {
 
         return String.join(" ", reconstructedMessage);
     }
+
+*/
+    public static String reconstructMessage(List<Satellite> satellites) {
+        if (satellites.isEmpty()) {
+            return "";
+        }
+
+        int maxMessageLength = 0;
+        for (Satellite satellite : satellites) {
+            List<String> message = satellite.getMessage().getMessage();
+            maxMessageLength = Math.max(maxMessageLength, message.size());
+        }
+
+        String[] reconstructedMessage = new String[maxMessageLength];
+
+        for (Satellite satellite : satellites) {
+            List<String> message = satellite.getMessage().getMessage();
+            for (int i = 0; i < message.size(); i++) {
+                String word = message.get(i);
+                if (word != null && !word.isEmpty() && reconstructedMessage[i] == null) {
+                    reconstructedMessage[i] = word;
+                }
+            }
+        }
+
+        for (int i = 0; i < reconstructedMessage.length; i++) {
+            if (reconstructedMessage[i] == null) {
+                reconstructedMessage[i] = "";
+            }
+        }
+
+        return String.join(" ", reconstructedMessage).trim();
+    }
+
 
 }
