@@ -33,7 +33,7 @@ public class RestAdapter {
     public ResponseEntity messageReconstruction(@RequestBody SatelliteRequest request) {
 
         if (request.getSatellites().size() != 3) {
-            return new ResponseEntity("Invalid number of messages", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Invalid number of messages or satellites", HttpStatus.BAD_REQUEST);
         }
         try {
             String[][] messages = new String[3][];
