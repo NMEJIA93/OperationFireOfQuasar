@@ -75,7 +75,5 @@ public class QuasarService {
     public void setSatelliteRepository(SatelliteRepository satelliteRepository) {
         this.satelliteRepository = satelliteRepository;
     }
-    
-    
 
 }
