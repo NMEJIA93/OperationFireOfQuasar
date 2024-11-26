@@ -5,6 +5,7 @@
 package OperationFireOfQuasar.infraestructure.input;
 
 import OperationFireOfQuasar.infraestructure.input.request.MessageRequest;
+import OperationFireOfQuasar.infraestructure.input.request.PointRequest;
 import OperationFireOfQuasar.infraestructure.input.request.SatelliteRequest;
 import OperationFireOfQuasar.infraestructure.input.request.response.MessageResponse;
 import OperationFireOfQuasar.shared.Const;
@@ -13,6 +14,7 @@ import operationFireOfQuasar.domain.models.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,9 +63,20 @@ public class RestAdapter {
             MessageResponse response = new MessageResponse(location, message);
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
-            
+
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-            
+
+        }
+    }
+
+    @PostMapping("/{satellite_name}")
+    public ResponseEntity<?> updateSatellitePosition(@PathVariable String satellite_name, @RequestBody PointRequest point) {
+        try {
+            Point newLocation = new Point(point.getX(), point.getY());
+            quasarService.updateSatellite(satellite_name, newLocation);
+            return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

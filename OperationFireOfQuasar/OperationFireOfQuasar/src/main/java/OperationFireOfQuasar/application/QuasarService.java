@@ -6,6 +6,7 @@ package operationFireOfQuasar.application;
 
 import OperationFireOfQuasar.shared.Const;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import operationFireOfQuasar.domain.models.Message;
 import operationFireOfQuasar.domain.models.Point;
@@ -29,7 +30,7 @@ public class QuasarService {
     private SatelliteRepository satelliteRepository;
 
     public QuasarService(SatelliteRepository satelliteRepository) {
-        this.satelliteRepository=satelliteRepository;
+        this.satelliteRepository = satelliteRepository;
         Satellite kenobi = new Satellite(Const.KENOBI, new Point(-500, -200), new Message(0, new ArrayList<String>()));
         Satellite skyWalker = new Satellite(Const.SKYWALKER, new Point(100, -100), new Message(0, new ArrayList<String>()));
         Satellite sato = new Satellite(Const.SATO, new Point(500, 100), new Message(0, new ArrayList<String>()));
@@ -39,14 +40,14 @@ public class QuasarService {
     }
 
     public Point getLocation(double[] distances) throws Exception {
-        List<Satellite> satellites= satelliteRepository.findAll();
-        DistanceAdapter.applyDistances(satellites,distances);
+        List<Satellite> satellites = satelliteRepository.findAll();
+        DistanceAdapter.applyDistances(satellites, distances);
         this.saveInfo(satellites);
         return getLocation();
     }
 
     public String getMessage(String[][] messages) {
-        List<Satellite> satellites= satelliteRepository.findAll();
+        List<Satellite> satellites = satelliteRepository.findAll();
         MessageAdapter.applyMessages(satellites, messages);
         this.saveInfo(satellites);
         return getMessage();
@@ -74,6 +75,16 @@ public class QuasarService {
 
     public void setSatelliteRepository(SatelliteRepository satelliteRepository) {
         this.satelliteRepository = satelliteRepository;
+    }
+
+    public void updateSatellite(String satelliteName, Point location) throws Exception {
+
+        Satellite existingSatellite = satelliteRepository.findByName(satelliteName)
+                .orElseThrow(() -> new Exception("Satellite not found: " + satelliteName));
+
+        existingSatellite.setLocation(location);
+
+        satelliteRepository.save(existingSatellite);
     }
 
 }

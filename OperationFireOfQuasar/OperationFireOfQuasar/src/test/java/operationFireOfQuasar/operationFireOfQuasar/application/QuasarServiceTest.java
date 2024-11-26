@@ -4,6 +4,7 @@ package operationFireOfQuasar.operationFireOfQuasar.application;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+import com.fasterxml.jackson.databind.ObjectMapper;
 import operationFireOfQuasar.domain.models.Message;
 import operationFireOfQuasar.domain.models.Point;
 import operationFireOfQuasar.domain.models.Satellite;
@@ -26,6 +27,9 @@ import operationFireOfQuasar.application.QuasarService;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.MockedStatic;
 import static org.mockito.Mockito.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
 /**
  *
@@ -41,10 +45,21 @@ public class QuasarServiceTest {
 
     @BeforeEach
     public void setUp() {
+        // Inicializa los mocks
         MockitoAnnotations.openMocks(this);
+
+        // Crea un mock del repositorio en lugar de usar el repositorio real
+        satelliteRepository = mock(SatelliteRepository.class);
+
+        // Inicializa el servicio con el repositorio mockeado
+        quasarService = new QuasarService(satelliteRepository);
+
+        // Crear satélites de ejemplo
         Satellite kenobi = new Satellite("kenobi", new Point(-500, -200), new Message(0, new ArrayList<>()));
         Satellite skywalker = new Satellite("skywalker", new Point(100, -100), new Message(0, new ArrayList<>()));
         Satellite sato = new Satellite("sato", new Point(500, 100), new Message(0, new ArrayList<>()));
+
+        // Configura el comportamiento mock del repositorio
         when(satelliteRepository.findAll()).thenReturn(Arrays.asList(kenobi, skywalker, sato));
     }
 
@@ -62,8 +77,8 @@ public class QuasarServiceTest {
             assertEquals(expectedLocation.getxLocation(), location.getxLocation());
             assertEquals(expectedLocation.getyLocation(), location.getyLocation());
 
-            verify(satelliteRepository, times(2)).findAll(); 
-            verify(satelliteRepository, times(6)).save(any(Satellite.class)); 
+            verify(satelliteRepository, times(2)).findAll();
+            verify(satelliteRepository, times(6)).save(any(Satellite.class));
         }
     }
 
@@ -84,8 +99,8 @@ public class QuasarServiceTest {
             assertNotNull(message);
             assertEquals(expectedMessage, message);
 
-            verify(satelliteRepository, times(2)).findAll(); 
-            verify(satelliteRepository, times(6)).save(any(Satellite.class)); 
+            verify(satelliteRepository, times(2)).findAll();
+            verify(satelliteRepository, times(6)).save(any(Satellite.class));
         }
     }
 
@@ -122,4 +137,3 @@ public class QuasarServiceTest {
         }
     }
 }
-
