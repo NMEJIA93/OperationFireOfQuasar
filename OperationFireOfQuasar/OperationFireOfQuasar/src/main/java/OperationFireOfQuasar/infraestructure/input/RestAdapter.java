@@ -79,6 +79,8 @@ public class RestAdapter {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    
+
 
     public QuasarService getQuasarService() {
         return quasarService;

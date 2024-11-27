@@ -16,21 +16,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 /**
- *
+ * Test class for DistanceCalculator.
+ * This class contains unit tests for the DistanceCalculator service.
+ * 
  * @author User
  */
 public class DistanceCalculatorTest {
-     @Test
-    void testGetLocation_withValidInput() throws Exception {
 
-        Satellite satellite1 = new Satellite("satellite1", new  Point(0, 0), new Message(5,new ArrayList()));
-        Satellite satellite2 = new Satellite("satellite2",new Point(4, 0), new Message(3,new ArrayList()));
-        Satellite satellite3 = new Satellite("satellite2", new Point(0, 3), new Message(4,new ArrayList()));
+    @Test
+    void testGetLocation_withValidInput() throws Exception {
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(5, new ArrayList<>()));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, new ArrayList<>()));
+        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, new ArrayList<>()));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
 
         Point result = DistanceCalculator.getLocation(satellites);
-
 
         assertEquals(4, result.getxLocation(), 0.001, "X-coordinate is incorrect");
         assertEquals(3, result.getyLocation(), 0.001, "Y-coordinate is incorrect");
@@ -38,27 +39,24 @@ public class DistanceCalculatorTest {
 
     @Test
     void testGetLocation_withLessThanThreeSatellites() {
-
-        Satellite satellite1 = new Satellite("satellite1", new  Point(0, 0), new Message(5,new ArrayList()));
-        Satellite satellite2 = new Satellite("satellite2",new Point(4, 0), new Message(3,new ArrayList()));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(5, new ArrayList<>()));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, new ArrayList<>()));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2);
 
         Exception exception = assertThrows(Exception.class, () -> DistanceCalculator.getLocation(satellites));
-        assertEquals("Se requieren al menos 3 satélites para calcular la posición.", exception.getMessage());
+        assertEquals("At least 3 satellites are required to calculate the position.", exception.getMessage());
     }
 
-   @Test
+    @Test
     void testGetLocation_withInvalidDistances() {
-
-        Satellite satellite1 = new Satellite("satellite1", new  Point(0, 0), new Message(1,new ArrayList()));
-        Satellite satellite2 = new Satellite("satellite2",new Point(10, 0), new Message(1,new ArrayList()));
-        Satellite satellite3 = new Satellite("satellite2", new Point(5, 5), new Message(10,new ArrayList()));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(1, new ArrayList<>()));
+        Satellite satellite2 = new Satellite("satellite2", new Point(10, 0), new Message(1, new ArrayList<>()));
+        Satellite satellite3 = new Satellite("satellite3", new Point(5, 5), new Message(10, new ArrayList<>()));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
 
-
         Exception exception = assertThrows(Exception.class, () -> DistanceCalculator.getLocation(satellites));
-        assertEquals("dos Satelites no pueden tener la misma distancia desde el Emisor", exception.getMessage());
+        assertEquals("Two satellites cannot have the same distance from the emitter.", exception.getMessage());
     }
 }
