@@ -19,71 +19,98 @@ import org.springframework.stereotype.Controller;
 public class ConsoleAdapter {
 
     private static Scanner reader = new Scanner(System.in);
-    private final QuasarService quasarService;
-
     @Autowired
-    public ConsoleAdapter(QuasarService quasarService) {
-        this.quasarService = quasarService;
-    }
+    private QuasarService quasarService;
 
     public void distanceController() {
         double[] distances = new double[3];
-        distances[0] = getDistanceFromUser("Kenobi");
-        distances[1] = getDistanceFromUser("Skywalker");
-        distances[2] = getDistanceFromUser("Sato");
+        System.out.println("ingrese la distancia a Kenobi");
+        distances[0] = Double.parseDouble(reader.nextLine());
+        System.out.println("ingrese la distancia a Skywalker");
+        distances[1] = Double.parseDouble(reader.nextLine());
+        System.out.println("ingrese la distancia a Sato");
+        distances[2] = Double.parseDouble(reader.nextLine());
         try {
             Point origin = quasarService.getLocation(distances);
-            System.out.println("The message originates from X: " + origin.getxLocation() + " and Y: " + origin.getyLocation());
+            System.out.println("el mensaje tiene origen en X:" + origin.getxLocation() + " y Y:" + origin.getyLocation());
         } catch (Exception e) {
-            System.out.println("Unable to determine the origin.");
+            System.out.println("no fue posible determinar el origen");
         }
+
     }
 
     public void messageController() {
+        System.out.println("ingrese el mensaje de Kenobi separado por comas (en caso de ser cortado ponga dos comas seguidas");
+        String messageKenobi = reader.nextLine();
+        System.out.println("ingrese el mensaje de Skywalker separado por comas (en caso de ser cortado ponga dos comas seguidas");
+        String messageSkywalker = reader.nextLine();
+        System.out.println("ingrese el mensaje de Sato separado por comas (en caso de ser cortado ponga dos comas seguidas");
+        String messageSato = reader.nextLine();
         String[][] messages = new String[3][];
-        messages[0] = getMessageFromUser("Kenobi");
-        messages[1] = getMessageFromUser("Skywalker");
-        messages[2] = getMessageFromUser("Sato");
+        messages[0] = messageKenobi.split(",");
+        messages[1] = messageSkywalker.split(",");
+        messages[2] = messageSato.split(",");
+        System.out.println(Arrays.toString(messages[0]));
+        System.out.println(Arrays.toString(messages[1]));
+        System.out.println(Arrays.toString(messages[2]));
         try {
             String message = quasarService.getMessage(messages);
-            System.out.println("The message is: " + message);
+            System.out.println("el mensaje es : " + message);
         } catch (Exception e) {
-            System.out.println("Unable to determine the message.");
+            System.out.println(e.getMessage());
+            for (StackTraceElement st : e.getStackTrace()) {
+                System.out.println(st.toString());
+            }
+            System.out.println("no fue posible determinar el mensaje");
         }
+
     }
 
-    public void level1Controller() {
+     public void level1Controller() {
+
+        System.out.println("ingrese el mensaje de Kenobi separado por comas (en caso de ser cortado ponga dos comas seguidas");
+        String messageKenobi = reader.nextLine();
+        System.out.println("ingrese la distancia a Kenobi");
+        double distanceKenobi = Double.parseDouble(reader.nextLine());
+
+        System.out.println("ingrese el mensaje de Skywalker separado por comas (en caso de ser cortado ponga dos comas seguidas");
+        String messageSkywalker = reader.nextLine();
+        System.out.println("ingrese la distancia a Skywalker");
+        double distanceSkywalker = Double.parseDouble(reader.nextLine());
+
+        System.out.println("ingrese el mensaje de Sato separado por comas (en caso de ser cortado ponga dos comas seguidas");
+        String messageSato = reader.nextLine();
+        System.out.println("ingrese la distancia a Sato");
+        double distanceSato = Double.parseDouble(reader.nextLine());
+
         String[][] messages = new String[3][];
         double[] distances = new double[3];
 
-        messages[0] = getMessageFromUser("Kenobi");
-        distances[0] = getDistanceFromUser("Kenobi");
+        distances[0] = distanceKenobi;
+        distances[1] = distanceSkywalker;
+        distances[2] = distanceSato;
 
-        messages[1] = getMessageFromUser("Skywalker");
-        distances[1] = getDistanceFromUser("Skywalker");
-
-        messages[2] = getMessageFromUser("Sato");
-        distances[2] = getDistanceFromUser("Sato");
-
+        messages[0] = messageKenobi.split(",");
+        messages[1] = messageSkywalker.split(",");
+        messages[2] = messageSato.split(",");
+        /* System.out.println(Arrays.toString(messages[0]));
+        System.out.println(Arrays.toString(messages[1]));
+        System.out.println(Arrays.toString(messages[2]));
+         */
         try {
             String message = quasarService.getMessage(messages);
-            System.out.println("The message is: " + message);
+            System.out.println("el mensaje es : " + message);
 
             Point origin = quasarService.getLocation(distances);
-            System.out.println("The coordinates of the message sender are X: " + origin.getxLocation() + " and Y: " + origin.getyLocation());
+            System.out.println("Las Coordenadas del Emisor de mensaje son en X:" + origin.getxLocation() + " y Y:" + origin.getyLocation());
         } catch (Exception e) {
-            System.out.println("Unable to determine the message or location");
+            System.out.println(e.getMessage());
+            for (StackTraceElement st : e.getStackTrace()) {
+                System.out.println(st.toString());
+            }
+            System.out.println("no fue posible determinar el mensaje");
         }
-    }
 
-        private double getDistanceFromUser(String satelliteName) {
-        System.out.println("Enter the distance to " + satelliteName);
-        return Double.parseDouble(reader.nextLine());
-    }
-
-    private String[] getMessageFromUser(String satelliteName) {
-        System.out.println("Enter the message from " + satelliteName + " separated by commas (if cut off, put two commas in a row)");
-        return reader.nextLine().split(",");
     }
 
     public static Scanner getReader() {
@@ -96,6 +123,10 @@ public class ConsoleAdapter {
 
     public QuasarService getQuasarService() {
         return quasarService;
+    }
+
+    public void setQuasarService(QuasarService quasarService) {
+        this.quasarService = quasarService;
     }
 
 }

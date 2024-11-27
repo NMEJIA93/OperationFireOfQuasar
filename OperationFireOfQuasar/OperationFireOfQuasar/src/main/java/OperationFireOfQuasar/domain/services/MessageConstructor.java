@@ -15,7 +15,7 @@ import operationFireOfQuasar.domain.models.Satellite;
  */
 public class MessageConstructor {
 
-    public static String reconstructMessage(List<Satellite> satellites) {
+    public static String reconstructMessage(List<Satellite> satellites) throws Exception {
         if (satellites.isEmpty()) {
             return "";
         }
@@ -30,10 +30,13 @@ public class MessageConstructor {
         return String.join(" ", reconstructedMessage).trim();
     }
 
-    private static int getMaxMessageLength(List<Satellite> satellites) {
+    private static int getMaxMessageLength(List<Satellite> satellites) throws Exception {
         int maxMessageLength = 0;
         for (Satellite satellite : satellites) {
             List<String> message = satellite.getMessage().getMessage();
+            if(message.isEmpty()){
+                throw new Exception("Message not found: " + satellite.getName());
+            }
             maxMessageLength = Math.max(maxMessageLength, message.size());
         }
         return maxMessageLength;
