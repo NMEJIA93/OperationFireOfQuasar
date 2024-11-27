@@ -210,7 +210,7 @@ En esta capa se gestionan los adaptadores y controladores, adaptando el proyecto
 Hasta este punto, el proyecto está planteado para que pueda adaptarse al **Nivel 1 (aplicación)**. En este nivel, definido como una aplicación de consola, se puede interactuar directamente con los datos de entrada y salida.  
 En el **Nivel 2 (API REST)**, el manejo se adapta para exponer los servicios mediante controladores y adaptadores REST.
 
-
+---
 
 ## 📋 Ejemplos JSON Requests
 
@@ -237,33 +237,23 @@ En el **Nivel 2 (API REST)**, el manejo se adapta para exponer los servicios med
   ]
 }
 
-POST /topsecret_split/{satellite_name}
-Descripción: Actualiza la posición de un satélite específico.
+### `PATCH /topsecret_split/{satellite_name}`
+**Descripción:** Actualiza parcialmente la posición de un satélite específico.  
+**Nota:** Aunque en el desafío se especifica usar `POST`, también se habilitó el uso de `PATCH`, ya que es el método más comúnmente utilizado para actualizaciones parciales.
 
-Request JSON:
-
-{
-  "x": 100.0,
-  "y": 200.0
-}
-
-PATCH /topsecret_split/{satellite_name}
-Descripción: Actualiza la posición de un satélite específico.
-si bien en el desafio se indica que sea solicitud POST tambien se tiene habilitado con solicitud PATCH dado que esta es la que usualmente se usa para actualizaciones parciales
-
-
+**Request JSON**:
+```json
 {
   "x": 150.0,
   "y": 250.0
 }
-
  
+### `POST /topsecret_splitMessage/{satellite_name}`
+**Descripción:** Actualiza el mensaje recibido por un satélite específico.  
+**Nota:** La URL es distinta a la indicada en el desafío debido a que ya existía una solicitud `POST` en la ruta `/topsecret_split/{satellite_name}`.
 
-POST /topsecret_splitMessage/{satellite_name}
-
-Descripción: Actualiza el mensaje recibido por un satélite específico.
-la URL de es distinta a la indicada en el desafio dado que ya se tenia una solicitud POST con la ruta /topsecret_split/{satellite_name}
-
+**Request JSON**:
+```json
 {
   "distance": 120.0,
   "message": ["este", "es", "un", "mensaje", "de", "prueba"]
