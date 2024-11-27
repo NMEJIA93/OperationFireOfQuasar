@@ -236,6 +236,9 @@ En el **Nivel 2 (API REST)**, el manejo se adapta para exponer los servicios med
     }
   ]
 }
+```
+
+
 
 ### `PATCH /topsecret_split/{satellite_name}`
 **Descripción:** Actualiza parcialmente la posición de un satélite específico.  
@@ -247,6 +250,7 @@ En el **Nivel 2 (API REST)**, el manejo se adapta para exponer los servicios med
   "x": 150.0,
   "y": 250.0
 }
+```
  
 ### `POST /topsecret_splitMessage/{satellite_name}`
 **Descripción:** Actualiza el mensaje recibido por un satélite específico.  
@@ -258,3 +262,4 @@ En el **Nivel 2 (API REST)**, el manejo se adapta para exponer los servicios med
   "distance": 120.0,
   "message": ["este", "es", "un", "mensaje", "de", "prueba"]
 }
+```
