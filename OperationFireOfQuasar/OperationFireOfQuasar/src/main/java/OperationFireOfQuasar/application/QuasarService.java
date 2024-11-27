@@ -29,24 +29,28 @@ public class QuasarService {
     private SatelliteRepository satelliteRepository;
 
     public QuasarService(SatelliteRepository satelliteRepository) {
-        this.satelliteRepository=satelliteRepository;
-        Satellite kenobi = new Satellite(Const.KENOBI, new Point(-500, -200), new Message(0, new ArrayList<String>()));
-        Satellite skyWalker = new Satellite(Const.SKYWALKER, new Point(100, -100), new Message(0, new ArrayList<String>()));
-        Satellite sato = new Satellite(Const.SATO, new Point(500, 100), new Message(0, new ArrayList<String>()));
+        this.satelliteRepository = satelliteRepository;
+        initializeSatellites();
+    }
+
+    private void initializeSatellites() {
+        Satellite kenobi = new Satellite(Const.KENOBI, new Point(-500, -200), new Message(0, new ArrayList<>()));
+        Satellite skyWalker = new Satellite(Const.SKYWALKER, new Point(100, -100), new Message(0, new ArrayList<>()));
+        Satellite sato = new Satellite(Const.SATO, new Point(500, 100), new Message(0, new ArrayList<>()));
         satelliteRepository.save(sato);
         satelliteRepository.save(skyWalker);
         satelliteRepository.save(kenobi);
     }
 
     public Point getLocation(double[] distances) throws Exception {
-        List<Satellite> satellites= satelliteRepository.findAll();
-        DistanceAdapter.applyDistances(satellites,distances);
+        List<Satellite> satellites = satelliteRepository.findAll();
+        DistanceAdapter.applyDistances(satellites, distances);
         this.saveInfo(satellites);
         return getLocation();
     }
 
     public String getMessage(String[][] messages) {
-        List<Satellite> satellites= satelliteRepository.findAll();
+        List<Satellite> satellites = satelliteRepository.findAll();
         MessageAdapter.applyMessages(satellites, messages);
         this.saveInfo(satellites);
         return getMessage();
@@ -75,7 +79,5 @@ public class QuasarService {
     public void setSatelliteRepository(SatelliteRepository satelliteRepository) {
         this.satelliteRepository = satelliteRepository;
     }
-    
-    
 
 }
