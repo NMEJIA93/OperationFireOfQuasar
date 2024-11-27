@@ -5,14 +5,19 @@
 package OperationFireOfQuasar.infraestructure.input;
 
 import OperationFireOfQuasar.infraestructure.input.request.MessageRequest;
+import OperationFireOfQuasar.infraestructure.input.request.PointRequest;
 import OperationFireOfQuasar.infraestructure.input.request.SatelliteRequest;
 import OperationFireOfQuasar.infraestructure.input.request.response.MessageResponse;
 import OperationFireOfQuasar.shared.Const;
+import java.util.Arrays;
 import operationFireOfQuasar.application.QuasarService;
 import operationFireOfQuasar.domain.models.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Norbey
  */
 @RestController()
-@RequestMapping("/topsecret")
 public class RestAdapter {
 
     @Autowired
     private QuasarService quasarService;
 
-    @PostMapping("/")
+    @PostMapping("/topsecret/")
     public ResponseEntity messageReconstruction(@RequestBody SatelliteRequest request) {
 
         if (request.getSatellites().size() != 3) {
@@ -61,7 +65,67 @@ public class RestAdapter {
             MessageResponse response = new MessageResponse(location, message);
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
+
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+
+        }
+    }
+
+    @GetMapping("/topsecret_split/")
+    public ResponseEntity messageReconstruction1() {
+        try {
+            Point location = quasarService.getLocation();
+            String message = quasarService.getMessage();
+            MessageResponse response = new MessageResponse(location, message);
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/topsecret_split/{satellite_name}")
+    public ResponseEntity<?> updateSatellitePosition(@PathVariable String satellite_name, @RequestBody PointRequest point) {
+        try {
+            Point newLocation = new Point(point.getX(), point.getY());
+            quasarService.updateSatellite(satellite_name, newLocation);
+            return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PatchMapping("/topsecret_split/{satellite_name}")
+    public ResponseEntity<?> updateSatellitePositioPatch(@PathVariable String satellite_name, @RequestBody PointRequest point) {
+        try {
+            Point newLocation = new Point(point.getX(), point.getY());
+            quasarService.updateSatellite(satellite_name, newLocation);
+            return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/topsecret_splitMessage/{satellite_name}")
+    public ResponseEntity<?> messagePostToSatellite(@PathVariable String satellite_name, @RequestBody MessageRequest message) {
+        try {
+            quasarService.getLocation(satellite_name, message.getDistance());
+            quasarService.getMessage(satellite_name, Arrays.asList(message.getMessage()));
+
+            return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PatchMapping("/topsecret_splitMessage/{satellite_name}")
+    public ResponseEntity<?> messagePostToSatellitePatch(@PathVariable String satellite_name, @RequestBody MessageRequest message) {
+        try {
+            quasarService.getLocation(satellite_name, message.getDistance());
+            quasarService.getMessage(satellite_name, Arrays.asList(message.getMessage()));
+
+            return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
