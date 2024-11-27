@@ -76,7 +76,7 @@ public class ConsoleAdapter {
         }
     }
 
-    private double getDistanceFromUser(String satelliteName) {
+        private double getDistanceFromUser(String satelliteName) {
         System.out.println("Enter the distance to " + satelliteName);
         return Double.parseDouble(reader.nextLine());
     }

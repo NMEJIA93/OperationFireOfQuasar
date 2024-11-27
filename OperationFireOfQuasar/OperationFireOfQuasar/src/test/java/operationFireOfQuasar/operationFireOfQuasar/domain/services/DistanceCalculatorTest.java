@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for DistanceCalculator.
- * This class contains unit tests for the DistanceCalculator service.
  * 
  * @author User
  */
