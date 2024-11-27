@@ -12,12 +12,10 @@ public class SatellitePositionRequest {
 
     private String name;
     private PointRequest location;
-    private MessageRequest message;
 
-    public SatellitePositionRequest(String name, PointRequest location, MessageRequest message) {
+    public SatellitePositionRequest(String name, PointRequest location) {
         this.name = name;
         this.location = location;
-        this.message = message;
     }
 
     public String getName() {
@@ -35,15 +33,5 @@ public class SatellitePositionRequest {
     public void setLocation(PointRequest location) {
         this.location = location;
     }
-
-    public MessageRequest getMessage() {
-        return message;
-    }
-
-    public void setMessage(MessageRequest message) {
-        this.message = message;
-    }
-
-
 
 }

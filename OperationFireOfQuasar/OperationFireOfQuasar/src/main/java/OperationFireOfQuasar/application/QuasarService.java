@@ -8,6 +8,7 @@ import OperationFireOfQuasar.shared.Const;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import operationFireOfQuasar.domain.models.Message;
 import operationFireOfQuasar.domain.models.Point;
 import operationFireOfQuasar.domain.models.Satellite;
@@ -42,23 +43,41 @@ public class QuasarService {
         satelliteRepository.save(skyWalker);
         satelliteRepository.save(kenobi);
     }
-    
 
     public Point getLocation(double[] distances) throws Exception {
         List<Satellite> satellites = satelliteRepository.findAll();
-        DistanceAdapter.applyDistances(satellites,distances);
+        DistanceAdapter.applyDistances(satellites, distances);
         this.saveInfo(satellites);
         return getLocation();
     }
 
-    public String getMessage(String[][] messages) {
+    public void getLocation(String satelliteName, double distance) throws Exception {
+        Optional<Satellite> satellite = satelliteRepository.findByName(satelliteName);
+        if(satellite.get() == null){
+            throw new Exception("Satelite no existe");
+        }
+        satellite.get().getMessage().setDistance(distance);
+        satelliteRepository.save(satellite.get());
+    }
+    
+    public void getMessage(String satelliteName, List<String> messages) throws Exception {
+        Optional<Satellite> satellite = satelliteRepository.findByName(satelliteName);
+        if(satellite.get() == null){
+            throw new Exception("Satelite no existe");
+        }
+        satellite.get().getMessage().setMessage(messages);
+        satelliteRepository.save(satellite.get());
+    }
+    
+
+    public String getMessage(String[][] messages) throws Exception {
         List<Satellite> satellites = satelliteRepository.findAll();
         MessageAdapter.applyMessages(satellites, messages);
         this.saveInfo(satellites);
         return getMessage();
     }
 
-    public String getMessage() {
+    public String getMessage() throws Exception {
         List<Satellite> satellites = satelliteRepository.findAll();
         return MessageConstructor.reconstructMessage(satellites);
     }

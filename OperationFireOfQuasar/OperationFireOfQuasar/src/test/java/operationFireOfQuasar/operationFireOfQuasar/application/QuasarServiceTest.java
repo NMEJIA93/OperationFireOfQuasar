@@ -45,21 +45,19 @@ public class QuasarServiceTest {
 
     @BeforeEach
     public void setUp() {
-        // Inicializa los mocks
-        MockitoAnnotations.openMocks(this);
 
-        // Crea un mock del repositorio en lugar de usar el repositorio real
+        MockitoAnnotations.openMocks(this);
+        
         satelliteRepository = mock(SatelliteRepository.class);
 
-        // Inicializa el servicio con el repositorio mockeado
+
         quasarService = new QuasarService(satelliteRepository);
 
-        // Crear satélites de ejemplo
+
         Satellite kenobi = new Satellite("kenobi", new Point(-500, -200), new Message(0, new ArrayList<>()));
         Satellite skywalker = new Satellite("skywalker", new Point(100, -100), new Message(0, new ArrayList<>()));
         Satellite sato = new Satellite("sato", new Point(500, 100), new Message(0, new ArrayList<>()));
 
-        // Configura el comportamiento mock del repositorio
         when(satelliteRepository.findAll()).thenReturn(Arrays.asList(kenobi, skywalker, sato));
     }
 
@@ -83,7 +81,7 @@ public class QuasarServiceTest {
     }
 
     @Test
-    public void testGetMessage() {
+    public void testGetMessage() throws Exception {
         String[][] messages = {
             {"este", "", "", "mensaje", ""},
             {"", "es", "", "", "secreto"},
@@ -105,7 +103,7 @@ public class QuasarServiceTest {
     }
 
     @Test
-    public void testGetMessageWithoutArguments() {
+    public void testGetMessageWithoutArguments() throws Exception {
         String expectedMessage = "este es un mensaje secreto";
 
         try (MockedStatic<MessageConstructor> mockedConstructor = mockStatic(MessageConstructor.class)) {
