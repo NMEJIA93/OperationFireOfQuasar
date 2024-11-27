@@ -31,13 +31,18 @@ public class QuasarService {
 
     public QuasarService(SatelliteRepository satelliteRepository) {
         this.satelliteRepository = satelliteRepository;
-        Satellite kenobi = new Satellite(Const.KENOBI, new Point(-500, -200), new Message(0, new ArrayList<String>()));
-        Satellite skyWalker = new Satellite(Const.SKYWALKER, new Point(100, -100), new Message(0, new ArrayList<String>()));
-        Satellite sato = new Satellite(Const.SATO, new Point(500, 100), new Message(0, new ArrayList<String>()));
+        initializeSatellites();
+    }
+
+    private void initializeSatellites() {
+        Satellite kenobi = new Satellite(Const.KENOBI, new Point(-500, -200), new Message(0, new ArrayList<>()));
+        Satellite skyWalker = new Satellite(Const.SKYWALKER, new Point(100, -100), new Message(0, new ArrayList<>()));
+        Satellite sato = new Satellite(Const.SATO, new Point(500, 100), new Message(0, new ArrayList<>()));
         satelliteRepository.save(sato);
         satelliteRepository.save(skyWalker);
         satelliteRepository.save(kenobi);
     }
+    
 
     public Point getLocation(double[] distances) throws Exception {
         List<Satellite> satellites = satelliteRepository.findAll();
