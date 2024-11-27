@@ -14,7 +14,7 @@ import operationFireOfQuasar.domain.services.DistanceAdapter;
 import operationFireOfQuasar.domain.services.DistanceCalculator;
 import operationFireOfQuasar.domain.services.MessageAdapter;
 import operationFireOfQuasar.domain.services.MessageConstructor;
-//import operationFireOfQuasar.infraestructure.output.SatelliteRepository;
+import operationFireOfQuasar.infraestructure.output.SatelliteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
