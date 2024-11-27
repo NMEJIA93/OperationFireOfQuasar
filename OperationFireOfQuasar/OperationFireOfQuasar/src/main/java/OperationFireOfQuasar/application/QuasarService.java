@@ -43,14 +43,14 @@ public class QuasarService {
     }
 
     public Point getLocation(double[] distances) throws Exception {
-        List<Satellite> satellites= satelliteRepository.findAll();
-        DistanceAdapter.applyDistances(satellites,distances);
+        List<Satellite> satellites = satelliteRepository.findAll();
+        DistanceAdapter.applyDistances(satellites, distances);
         this.saveInfo(satellites);
         return getLocation();
     }
 
     public String getMessage(String[][] messages) {
-        List<Satellite> satellites= satelliteRepository.findAll();
+        List<Satellite> satellites = satelliteRepository.findAll();
         MessageAdapter.applyMessages(satellites, messages);
         this.saveInfo(satellites);
         return getMessage();

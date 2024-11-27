@@ -61,9 +61,7 @@ public class RestAdapter {
             MessageResponse response = new MessageResponse(location, message);
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
-            
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-            
         }
     }
 
