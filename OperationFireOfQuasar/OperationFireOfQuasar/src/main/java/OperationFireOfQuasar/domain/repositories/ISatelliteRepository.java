@@ -13,11 +13,12 @@ import operationFireOfQuasar.domain.models.Satellite;
  * @author Norbey
  */
 public interface ISatelliteRepository {
-   
+
     void save(Satellite satellite);
+
     Optional<Satellite> findByName(String name);
+
     void deleteAll();
-    List<Satellite>  findAll();
+
+    List<Satellite> findAll();
 }
-
-

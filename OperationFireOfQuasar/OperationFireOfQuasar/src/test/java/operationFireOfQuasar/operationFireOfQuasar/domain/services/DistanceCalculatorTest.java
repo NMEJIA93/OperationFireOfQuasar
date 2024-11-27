@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 /**
- * 
+ *
  * @author User
  */
 public class DistanceCalculatorTest {
@@ -44,6 +44,7 @@ public class DistanceCalculatorTest {
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2);
 
         Exception exception = assertThrows(Exception.class, () -> DistanceCalculator.getLocation(satellites));
+        assertEquals("At least 3 satellites are required to calculate the position.", exception.getMessage());
         assertEquals("At least 3 satellites are required to calculate the position.", exception.getMessage());
     }
 
