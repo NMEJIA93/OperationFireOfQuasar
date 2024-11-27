@@ -95,10 +95,10 @@ public class RestAdapter {
     }
 
     @PatchMapping("/topsecret_split/{satellite_name}")
-    public ResponseEntity<?> updateSatellitePositioPatch(@PathVariable String satelliteName, @RequestBody PointRequest point) {
+    public ResponseEntity<?> updateSatellitePositioPatch(@PathVariable String satellite_name, @RequestBody PointRequest point) {
         try {
             Point newLocation = new Point(point.getX(), point.getY());
-            quasarService.updateSatellite(satelliteName, newLocation);
+            quasarService.updateSatellite(satellite_name, newLocation);
             return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -106,10 +106,10 @@ public class RestAdapter {
     }
 
     @PostMapping("/topsecret_splitMessage/{satellite_name}")
-    public ResponseEntity<?> messagePostToSatellite(@PathVariable String satelliteName, @RequestBody MessageRequest message) {
+    public ResponseEntity<?> messagePostToSatellite(@PathVariable String satellite_name, @RequestBody MessageRequest message) {
         try {
-            quasarService.getLocation(satelliteName, message.getDistance());
-            quasarService.getMessage(satelliteName, Arrays.asList(message.getMessage()));
+            quasarService.getLocation(satellite_name, message.getDistance());
+            quasarService.getMessage(satellite_name, Arrays.asList(message.getMessage()));
 
             return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
         } catch (Exception e) {
@@ -118,10 +118,10 @@ public class RestAdapter {
     }
 
     @PatchMapping("/topsecret_splitMessage/{satellite_name}")
-    public ResponseEntity<?> messagePostToSatellitePatch(@PathVariable String satelliteName, @RequestBody MessageRequest message) {
+    public ResponseEntity<?> messagePostToSatellitePatch(@PathVariable String satellite_name, @RequestBody MessageRequest message) {
         try {
-            quasarService.getLocation(satelliteName, message.getDistance());
-            quasarService.getMessage(satelliteName, Arrays.asList(message.getMessage()));
+            quasarService.getLocation(satellite_name, message.getDistance());
+            quasarService.getMessage(satellite_name, Arrays.asList(message.getMessage()));
 
             return new ResponseEntity<>("Satellite data updated successfully", HttpStatus.OK);
         } catch (Exception e) {
