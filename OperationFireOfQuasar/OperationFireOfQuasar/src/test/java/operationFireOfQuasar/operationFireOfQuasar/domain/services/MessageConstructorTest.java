@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class MessageConstructorTest {
 
     @Test
-    void testReconstructMessage_withCompleteMessage() {
+    void testReconstructMessage_withCompleteMessage() throws Exception {
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(4, Arrays.asList("este", "", "", "mensaje", "")));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(4, Arrays.asList("", "es", "", "", "secreto")));
         Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, Arrays.asList("", "", "un", "", "")));
@@ -35,7 +35,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withDuplicateWords() {
+    void testReconstructMessage_withDuplicateWords() throws Exception {
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(4, Arrays.asList("este", "", "", "mensaje", "")));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(4, Arrays.asList("", "es", "", "", "secreto")));
         Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, Arrays.asList("este", "", "un", "", "")));
@@ -48,7 +48,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withNullAndEmptyValues() {
+    void testReconstructMessage_withNullAndEmptyValues() throws Exception {
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("buenos", "", "")));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "días", null)));
 
@@ -60,7 +60,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withEmptySatelliteList() {
+    void testReconstructMessage_withEmptySatelliteList() throws Exception {
         // Arrange
         List<Satellite> satellites = Collections.emptyList();
 
@@ -72,7 +72,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withValidMessages() {
+    void testReconstructMessage_withValidMessages() throws Exception {
         // Caso 1: Mensajes válidos de satélites que tienen palabras completas y en orden
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("mensaje", "", "")));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "nuevo", "")));
@@ -86,7 +86,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withEmptyMessages() {
+    void testReconstructMessage_withEmptyMessages() throws Exception {
         // Caso 2: Mensajes vacíos de satélites
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("", "", "")));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "", "")));
@@ -100,7 +100,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withNullAndEmptyValues1() {
+    void testReconstructMessage_withNullAndEmptyValues1() throws Exception {
         // Caso 3: Mensajes con valores null y vacíos
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("nuevo", "", null)));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "mensaje", "")));
@@ -114,7 +114,7 @@ public class MessageConstructorTest {
     }
 
     @Test
-    void testReconstructMessage_withDifferentLengthMessages() {
+    void testReconstructMessage_withDifferentLengthMessages() throws Exception {
         // Caso 4: Mensajes de satélites con diferentes longitudes
         Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(2, Arrays.asList("hola", "mundo")));
         Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "mundo", "programador")));
