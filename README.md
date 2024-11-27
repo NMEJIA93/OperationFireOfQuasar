@@ -6,7 +6,7 @@ Este proyecto aborda un desafío técnico que consta de **dos requerimientos pri
 1. **Triangulación de un objeto**: Determinar la posición (X, Y) de un emisor desconocido.
 2. **Reconstrucción de un mensaje**: Procesar los datos recibidos desde múltiples satélites para reconstruir el mensaje enviado.
 
-Para lograr esto, se cuenta con información de **tres satélites** (cuyos nombres son **[Nombre del Satélite 1]**, **[Nombre del Satélite 2]** y **[Nombre del Satélite 3]**), los cuales reciben mensajes del emisor. La aplicación procesa estos datos para calcular:
+Para lograr esto, se cuenta con información de **tres satélites** (cuyos nombres son **kenobi**, **skywalker** y **sato**), los cuales reciben mensajes del emisor. La aplicación procesa estos datos para calcular:
 
 - La posición del emisor.
 - El contenido del mensaje enviado.
