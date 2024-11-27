@@ -72,7 +72,7 @@ public class ConsoleAdapter {
             Point origin = quasarService.getLocation(distances);
             System.out.println("The coordinates of the message sender are X: " + origin.getxLocation() + " and Y: " + origin.getyLocation());
         } catch (Exception e) {
-            System.out.println("Unable to determine the message.");
+            System.out.println("Unable to determine the message or location");
         }
     }
 
