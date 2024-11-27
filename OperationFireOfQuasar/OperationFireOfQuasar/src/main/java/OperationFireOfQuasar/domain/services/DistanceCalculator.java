@@ -10,40 +10,64 @@ import operationFireOfQuasar.domain.models.Satellite;
 
 /**
  *
- * @author Norbey
+ * @autor Norbey
  */
 public class DistanceCalculator {
 
     public static Point getLocation(List<Satellite> satellites) throws Exception {
+        validateSatellites(satellites);
+
+        Satellite sKenobi = satellites.get(0);
+        Satellite sSkywalker = satellites.get(1);
+        Satellite sSato = satellites.get(2);
+
+        double[] kenobiCoordinates = getCoordinates(sKenobi);
+        double[] skywalkerCoordinates = getCoordinates(sSkywalker);
+        double[] satoCoordinates = getCoordinates(sSato);
+
+        double distanceToKenobi = sKenobi.getMessage().getDistance();
+        double distanceToSkywalker = sSkywalker.getMessage().getDistance();
+        double distanceToSato = sSato.getMessage().getDistance();
+
+        validateDistances(distanceToKenobi,
+                distanceToSkywalker,
+                distanceToSato);
+
+        return calculateLocation(kenobiCoordinates,
+                skywalkerCoordinates,
+                satoCoordinates,
+                distanceToKenobi,
+                distanceToSkywalker,
+                distanceToSato);
+    }
+
+    private static void validateSatellites(List<Satellite> satellites) throws Exception {
         if (satellites.size() < 3) {
-            throw new Exception("Se requieren al menos 3 satélites para calcular la posición.");
+            throw new Exception("At least 3 satellites are required to calculate the position.");
         }
+    }
 
-        Satellite s1 = satellites.get(0);
-        Satellite s2 = satellites.get(1);
-        Satellite s3 = satellites.get(2);
+    private static double[] getCoordinates(Satellite satellite) {
+        return new double[]{satellite.getLocation().getxLocation(), satellite.getLocation().getyLocation()};
+    }
 
-        double[] p1 = {s1.getLocation().getxLocation(), s1.getLocation().getyLocation()};
-        double[] p2 = {s2.getLocation().getxLocation(), s2.getLocation().getyLocation()};
-        double[] p3 = {s3.getLocation().getxLocation(), s3.getLocation().getyLocation()};
-
-        double d1 = s1.getMessage().getDistance();
-        double d2 = s2.getMessage().getDistance();
-        double d3 = s3.getMessage().getDistance();
-
-        if (d1 == d2 || d1 == d3 || d2 == d3 ) {
-            throw new Exception("dos Satelites no pueden tener la misma distancia desde el Emisor");
+    private static void validateDistances(double distanceToKenobi, double distanceToSkywalker, double distanceToSato) throws Exception {
+        if (distanceToKenobi == distanceToSkywalker || distanceToKenobi == distanceToSato || distanceToSkywalker == distanceToSato) {
+            throw new Exception("Two satellites cannot have the same distance from the emitter.");
         }
+    }
 
-        double A = 2 * (p2[0] - p1[0]);
-        double B = 2 * (p2[1] - p1[1]);
-        double C = Math.pow(d1, 2) - Math.pow(d2, 2) - Math.pow(p1[0], 2) + Math.pow(p2[0], 2) - Math.pow(p1[1], 2) + Math.pow(p2[1], 2);
-        double D = 2 * (p3[0] - p2[0]);
-        double E = 2 * (p3[1] - p2[1]);
-        double F = Math.pow(d2, 2) - Math.pow(d3, 2) - Math.pow(p2[0], 2) + Math.pow(p3[0], 2) - Math.pow(p2[1], 2) + Math.pow(p3[1], 2);
+    private static Point calculateLocation(double[] kenobiCoordinates, double[] skywalkerCoordinates, double[] satoCoordinates, double distanceToKenobi, double distanceToSkywalker, double distanceToSato) {
+        double deltaXKenobiSkywalker = 2 * (skywalkerCoordinates[0] - kenobiCoordinates[0]);
+        double deltaYKenobiSkywalker = 2 * (skywalkerCoordinates[1] - kenobiCoordinates[1]);
+        double constantKenobiSkywalker = Math.pow(distanceToKenobi, 2) - Math.pow(distanceToSkywalker, 2) - Math.pow(kenobiCoordinates[0], 2) + Math.pow(skywalkerCoordinates[0], 2) - Math.pow(kenobiCoordinates[1], 2) + Math.pow(skywalkerCoordinates[1], 2);
 
-        double x = (C * E - F * B) / (E * A - B * D);
-        double y = (C * D - A * F) / (B * D - A * E);
+        double deltaXSkywalkerSato = 2 * (satoCoordinates[0] - skywalkerCoordinates[0]);
+        double deltaYSkywalkerSato = 2 * (satoCoordinates[1] - skywalkerCoordinates[1]);
+        double constantSkywalkerSato = Math.pow(distanceToSkywalker, 2) - Math.pow(distanceToSato, 2) - Math.pow(skywalkerCoordinates[0], 2) + Math.pow(satoCoordinates[0], 2) - Math.pow(skywalkerCoordinates[1], 2) + Math.pow(satoCoordinates[1], 2);
+
+        double x = (constantKenobiSkywalker * deltaYSkywalkerSato - constantSkywalkerSato * deltaYKenobiSkywalker) / (deltaYSkywalkerSato * deltaXKenobiSkywalker - deltaYKenobiSkywalker * deltaXSkywalkerSato);
+        double y = (constantKenobiSkywalker * deltaXSkywalkerSato - deltaXKenobiSkywalker * constantSkywalkerSato) / (deltaYKenobiSkywalker * deltaXSkywalkerSato - deltaXKenobiSkywalker * deltaYSkywalkerSato);
 
         return new Point(x, y);
     }
