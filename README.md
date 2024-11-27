@@ -1,4 +1,4 @@
-# 🚀 🚀 OperationFireOfQuasar
+# 🚀  Operation Fire Of Quasar
 
 ## 📝 Descripción del Proyecto
 Este proyecto aborda un desafío técnico que consta de **dos requerimientos principales**:
