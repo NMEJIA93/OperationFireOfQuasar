@@ -41,7 +41,7 @@ public class QuasarService {
 
     public Point getLocation(double[] distances) throws Exception {
         List<Satellite> satellites = satelliteRepository.findAll();
-        DistanceAdapter.applyDistances(satellites, distances);
+        DistanceAdapter.applyDistances(satellites,distances);
         this.saveInfo(satellites);
         return getLocation();
     }

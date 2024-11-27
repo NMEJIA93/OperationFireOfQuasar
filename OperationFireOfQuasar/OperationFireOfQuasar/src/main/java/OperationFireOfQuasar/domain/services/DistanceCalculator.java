@@ -9,9 +9,7 @@ import operationFireOfQuasar.domain.models.Point;
 import operationFireOfQuasar.domain.models.Satellite;
 
 /**
- * Service for calculating distances and locations.
- * This service provides methods to calculate the location of a point based on distances from known points.
- * 
+ *
  * @autor Norbey
  */
 public class DistanceCalculator {
@@ -31,9 +29,16 @@ public class DistanceCalculator {
         double distanceToSkywalker = sSkywalker.getMessage().getDistance();
         double distanceToSato = sSato.getMessage().getDistance();
 
-        validateDistances(distanceToKenobi, distanceToSkywalker, distanceToSato);
+        validateDistances(distanceToKenobi,
+                distanceToSkywalker,
+                distanceToSato);
 
-        return calculateLocation(kenobiCoordinates, skywalkerCoordinates, satoCoordinates, distanceToKenobi, distanceToSkywalker, distanceToSato);
+        return calculateLocation(kenobiCoordinates,
+                skywalkerCoordinates,
+                satoCoordinates,
+                distanceToKenobi,
+                distanceToSkywalker,
+                distanceToSato);
     }
 
     private static void validateSatellites(List<Satellite> satellites) throws Exception {
