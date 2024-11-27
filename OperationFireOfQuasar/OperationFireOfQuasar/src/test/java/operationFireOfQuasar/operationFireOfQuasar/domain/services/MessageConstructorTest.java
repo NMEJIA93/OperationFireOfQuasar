@@ -16,52 +16,53 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 /**
- *
- * @author User
+ * Test class for MessageConstructor.
+ * This class contains unit tests for the MessageConstructor service.
+ * 
+ * @autor User
  */
 public class MessageConstructorTest {
 
     @Test
     void testReconstructMessage_withCompleteMessage() {
-        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(4, Arrays.asList("este", "", "", "mensaje", "")));
-        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(4, Arrays.asList("", "es", "", "", "secreto")));
-        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, Arrays.asList("", "", "un", "", "")));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(4, Arrays.asList("this", "", "", "message", "")));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(4, Arrays.asList("", "is", "", "", "secret")));
+        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, Arrays.asList("", "", "a", "", "")));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
 
         String result = MessageConstructor.reconstructMessage(satellites);
 
-        assertEquals("este es un mensaje secreto", result);
+        assertEquals("this is a message secret", result);
     }
 
     @Test
     void testReconstructMessage_withDuplicateWords1() {
-        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(4, Arrays.asList("","este", "es", "un", "mensaje", "")));
-        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(4, Arrays.asList("este", "", "", "un", "mensaje")));
-        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, Arrays.asList("", "", "es", "", "mensaje")));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(4, Arrays.asList("", "this", "is", "a", "message", "")));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(4, Arrays.asList("this", "", "", "a", "message")));
+        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(4, Arrays.asList("", "", "is", "", "message")));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
 
         String result = MessageConstructor.reconstructMessage(satellites);
 
-        assertEquals("este es un mensaje", result);
+        assertEquals("this is a message", result);
     }
 
     @Test
     void testReconstructMessage_withNullAndEmptyValues() {
-        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("buenos", "", "")));
-        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "días", null)));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("good", "", "")));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "morning", null)));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2);
 
         String result = MessageConstructor.reconstructMessage(satellites);
 
-        assertEquals("buenos días", result);
+        assertEquals("good morning", result);
     }
 
     @Test
     void testReconstructMessage_withEmptySatelliteList() {
-      
         List<Satellite> satellites = Collections.emptyList();
         String result = MessageConstructor.reconstructMessage(satellites);
         assertEquals("", result);
@@ -69,13 +70,13 @@ public class MessageConstructorTest {
 
     @Test
     void testReconstructMessage_withValidMessages() {
-        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("mensaje", "", "")));
-        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "nuevo", "")));
-        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(3, Arrays.asList("", "", "auxilio")));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("message", "", "")));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "new", "")));
+        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(3, Arrays.asList("", "", "help")));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
         String result = MessageConstructor.reconstructMessage(satellites);
-        assertEquals("mensaje nuevo auxilio", result);
+        assertEquals("message new help", result);
     }
 
     @Test
@@ -92,27 +93,24 @@ public class MessageConstructorTest {
 
     @Test
     void testReconstructMessage_withNullAndEmptyValues1() {
-
-        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("nuevo", "", null)));
-        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "mensaje", "")));
-        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(3, Arrays.asList(null, null, "Auxilio")));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(3, Arrays.asList("new", "", null)));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "message", "")));
+        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(3, Arrays.asList(null, null, "help")));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
         String result = MessageConstructor.reconstructMessage(satellites);
 
-        assertEquals("nuevo mensaje Auxilio", result);
+        assertEquals("new message help", result);
     }
 
     @Test
     void testReconstructMessage_withDifferentLengthMessages() {
-
-        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(2, Arrays.asList("hola", "mundo")));
-        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "mundo", "programador")));
-        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(1, Arrays.asList("hola")));
+        Satellite satellite1 = new Satellite("satellite1", new Point(0, 0), new Message(2, Arrays.asList("hello", "world")));
+        Satellite satellite2 = new Satellite("satellite2", new Point(4, 0), new Message(3, Arrays.asList("", "world", "programmer")));
+        Satellite satellite3 = new Satellite("satellite3", new Point(0, 3), new Message(1, Arrays.asList("hello")));
 
         List<Satellite> satellites = Arrays.asList(satellite1, satellite2, satellite3);
         String result = MessageConstructor.reconstructMessage(satellites);
-        assertEquals("hola mundo programador", result);
+        assertEquals("hello world programmer", result);
     }
-
 }
