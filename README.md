@@ -46,7 +46,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 ### Clonar el Repositorio
 
-git clone https://github.com/tu-usuario/OperationFireOfQuasar.git
+git clone https://github.com/NMEJIA93/OperationFireOfQuasar.git
 cd OperationFireOfQuasar
 en el Repositorio de GITHUB los niveles estan TAG para diferenciar los Niveles indicados en la prueba
 
